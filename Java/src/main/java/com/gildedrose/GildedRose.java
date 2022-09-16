@@ -20,18 +20,18 @@ class GildedRose {
                 }
             } else {
                 if (canIncreaseQuality(item)) {
-                    item.quality = item.quality + 1;
+                    incrementQuality(item);
 
                     if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (item.sellIn < 11) {
                             if (canIncreaseQuality(item)) {
-                                item.quality = item.quality + 1;
+                                incrementQuality(item);
                             }
                         }
 
                         if (item.sellIn < 6) {
                             if (canIncreaseQuality(item)) {
-                                item.quality = item.quality + 1;
+                                incrementQuality(item);
                             }
                         }
                     }
@@ -55,11 +55,15 @@ class GildedRose {
                     }
                 } else {
                     if (canIncreaseQuality(item)) {
-                        item.quality = item.quality + 1;
+                        incrementQuality(item);
                     }
                 }
             }
         }
+    }
+
+    private void incrementQuality(Item item) {
+        item.quality++;
     }
 
     private boolean canIncreaseQuality(Item item) {
