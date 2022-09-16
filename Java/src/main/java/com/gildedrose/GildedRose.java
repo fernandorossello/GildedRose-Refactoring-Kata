@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.sellin.SellStrategy;
+import com.gildedrose.sellin.SellStrategyFactory;
+
 class GildedRose {
 
     public static final int MAX_QUALITY = 50;
@@ -34,9 +37,8 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                item.sellIn = item.sellIn - 1;
-            }
+            SellStrategy sellStrategy = SellStrategyFactory.getStrategy(item);
+            sellStrategy.update(item);
 
             if (isOutdated(item)) {
                 if (!item.name.equals("Aged Brie")) {
