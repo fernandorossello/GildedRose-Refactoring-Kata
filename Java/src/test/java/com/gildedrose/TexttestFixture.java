@@ -38,8 +38,7 @@ public class TexttestFixture {
     }
 
     private static int getNumberOfDays(String[] args) {
-        int numberOfDays = args.length > 0 && args[0] != null ? Integer.parseInt(args[0]) : 2;
-        return numberOfDays;
+        return args.length > 0 && args[0] != null ? Integer.parseInt(args[0]) : 2;
     }
 
 }
