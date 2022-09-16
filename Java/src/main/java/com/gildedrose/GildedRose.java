@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import com.gildedrose.quality.QualityStrategy;
+import com.gildedrose.quality.QualityStrategyFactory;
 import com.gildedrose.sellin.SellStrategy;
 import com.gildedrose.sellin.SellStrategyFactory;
 
@@ -14,13 +16,14 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+
+            QualityStrategy qualityStrategy = QualityStrategyFactory.get(item);
+
             if (!item.name.equals("Aged Brie")
                 && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.quality > 0) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                        decrementQuality(item);
-                    }
-                }
+
+                qualityStrategy.update(item);
+
             } else {
                 if (canIncreaseQuality(item)) {
                     incrementQuality(item);
@@ -41,18 +44,14 @@ class GildedRose {
             sellStrategy.update(item);
 
             if (isOutdated(item)) {
-                if (!item.name.equals("Aged Brie")) {
+                if (item.name.equals("Aged Brie")) {
+                    incrementQualityIfPossible(item);
+                } else {
                     if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                                decrementQuality(item);
-                            }
-                        }
+                        qualityStrategy.update(item);
                     } else {
                         item.quality = 0;
                     }
-                } else {
-                    incrementQualityIfPossible(item);
                 }
             }
         }
@@ -66,10 +65,6 @@ class GildedRose {
 
     private boolean isOutdated(Item item) {
         return item.sellIn < 0;
-    }
-
-    private void decrementQuality(Item item) {
-        item.quality--;
     }
 
     private void incrementQuality(Item item) {
