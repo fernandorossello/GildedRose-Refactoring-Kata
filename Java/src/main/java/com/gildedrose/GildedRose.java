@@ -19,18 +19,18 @@ class GildedRose {
                     }
                 }
             } else {
-                if (item.quality < MAX_QUALITY) {
+                if (canIncreaseQuality(item)) {
                     item.quality = item.quality + 1;
 
                     if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (item.sellIn < 11) {
-                            if (item.quality < MAX_QUALITY) {
+                            if (canIncreaseQuality(item)) {
                                 item.quality = item.quality + 1;
                             }
                         }
 
                         if (item.sellIn < 6) {
-                            if (item.quality < MAX_QUALITY) {
+                            if (canIncreaseQuality(item)) {
                                 item.quality = item.quality + 1;
                             }
                         }
@@ -54,11 +54,15 @@ class GildedRose {
                         item.quality = 0;
                     }
                 } else {
-                    if (item.quality < MAX_QUALITY) {
+                    if (canIncreaseQuality(item)) {
                         item.quality = item.quality + 1;
                     }
                 }
             }
         }
+    }
+
+    private boolean canIncreaseQuality(Item item) {
+        return item.quality < MAX_QUALITY;
     }
 }
