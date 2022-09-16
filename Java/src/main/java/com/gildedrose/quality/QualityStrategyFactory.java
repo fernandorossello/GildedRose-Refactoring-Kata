@@ -9,6 +9,10 @@ public class QualityStrategyFactory {
             return new NoOpQualityStrategy();
         }
 
+        if(item.name.startsWith("Backstage passes")) {
+            return new IncrementUntilSellDateThenZeroStrategy();
+        }
+
         return new RegularDecreaseStrategy();
     }
 
