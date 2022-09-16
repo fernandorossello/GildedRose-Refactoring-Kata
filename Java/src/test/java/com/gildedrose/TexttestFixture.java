@@ -2,6 +2,9 @@ package com.gildedrose;
 
 public class TexttestFixture {
     public static void main(String[] args) {
+
+        int numberOfDays = getNumberOfDays(args);
+
         System.out.println("OMGHAI!");
 
         Item[] items = new Item[] {
@@ -18,7 +21,7 @@ public class TexttestFixture {
 
         GildedRose app = new GildedRose(items);
 
-        int days = 2;
+        int days = numberOfDays;
         if (args.length > 0) {
             days = Integer.parseInt(args[0]) + 1;
         }
@@ -32,6 +35,11 @@ public class TexttestFixture {
             System.out.println();
             app.updateQuality();
         }
+    }
+
+    private static int getNumberOfDays(String[] args) {
+        int numberOfDays = args.length > 0 && args[0] != null ? Integer.parseInt(args[0]) : 2;
+        return numberOfDays;
     }
 
 }
