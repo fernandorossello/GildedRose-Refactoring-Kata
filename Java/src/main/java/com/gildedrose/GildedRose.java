@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 class GildedRose {
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -49,7 +50,7 @@ class GildedRose {
                             }
                         }
                     } else {
-                        items[i].quality = items[i].quality - items[i].quality;
+                        items[i].quality = 0;
                     }
                 } else {
                     if (items[i].quality < 50) {
