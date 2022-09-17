@@ -44,7 +44,7 @@ class GildedRose {
             // GreaterThan 10 -> +1
             // Between [6,10] -> +2
             // Between [5,1]  -> +3
-            // SmallerThan 0  -> =0
+            // SmallerThan 0  -> = 0
 
             // Aged Brie
             // GreaterThan 0 -> +1
