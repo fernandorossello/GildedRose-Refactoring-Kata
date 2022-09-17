@@ -1,6 +1,5 @@
 package com.gildedrose.quality;
 
-import com.gildedrose.Item;
 import com.gildedrose.quality.agecalculator.NotOutdated;
 import com.gildedrose.quality.agecalculator.Outdated;
 import com.gildedrose.quality.updater.QualityIncrement;

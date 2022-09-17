@@ -46,17 +46,8 @@ class GildedRose {
             // Between [5,1]  -> +3
             // SmallerThan 0  -> = 0
 
-            // Aged Brie
-            // NotOutdated -> +1
-            // Outdated -> +2
-
-            // Regular objects
-            // SmallerThan 0 -> -2
-
             // Sulfuras
             // Never decreases anything
-
-            // Quality between (0-50)
 
             SellStrategy sellStrategy = SellStrategyFactory.getStrategy(item);
             sellStrategy.update(item);

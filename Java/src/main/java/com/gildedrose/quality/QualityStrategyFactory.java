@@ -10,7 +10,7 @@ public class QualityStrategyFactory {
         }
 
         if(item.name.startsWith("Backstage passes")) {
-            return new IncrementUntilSellDateThenZeroStrategy();
+            return new BackstageTicketsStrategy();
         }
 
         return new RegularDecreaseStrategy();
