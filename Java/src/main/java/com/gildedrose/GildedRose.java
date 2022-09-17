@@ -47,8 +47,8 @@ class GildedRose {
             // SmallerThan 0  -> = 0
 
             // Aged Brie
-            // GreaterThan 0 -> +1
-            // SmallerThan 1 -> +2
+            // NotOutdated -> +1
+            // Outdated -> +2
 
             // Regular objects
             // SmallerThan 0 -> -2
