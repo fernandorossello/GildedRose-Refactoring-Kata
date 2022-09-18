@@ -87,4 +87,16 @@ class GildedRoseTest {
         assertEquals(0, conjuredRing.quality);
     }
 
+    @Test
+    void sulfuras_shouldRemainTheSame() {
+        Item sulfuras = new Item("Sulfuras", 5, 80);
+
+        GildedRose store = new GildedRose(new Item[]{sulfuras});
+
+        store.updateQuality();
+
+        assertEquals(80, sulfuras.quality);
+        assertEquals(5, sulfuras.sellIn);
+    }
+
 }

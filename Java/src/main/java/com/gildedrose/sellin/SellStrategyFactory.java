@@ -6,7 +6,7 @@ public class SellStrategyFactory {
 
     public static SellStrategy getStrategy(Item item) {
 
-        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+        if (item.name.startsWith("Sulfuras")) {
             return new NoOpSellStrategy();
         }
 
