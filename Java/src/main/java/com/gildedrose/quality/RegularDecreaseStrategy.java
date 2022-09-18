@@ -14,9 +14,6 @@ public class RegularDecreaseStrategy extends BaseUpdateStrategy {
 
     public RegularDecreaseStrategy() {
         rules.add(decreaseByOneUntilOutdated);
-
-        //TODO: Replace this. Stays like this for Golden Master
-        rules.add(new QualityUpdateRule(new SmallerThan(0), new QualityDecrement(1)));
-        //rules.add(decreaseByTwoWhenOutdated);
+        rules.add(decreaseByTwoWhenOutdated);
     }
 }

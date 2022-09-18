@@ -1,36 +1,90 @@
 package com.gildedrose;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class GildedRoseTest {
 
-    private PrintStream toRestore;
-    private ByteArrayOutputStream outputStream;
 
-    @BeforeEach
-    void setUp() {
-        outputStream = new ByteArrayOutputStream();
-        PrintStream stream = new PrintStream(outputStream);
-        toRestore = System.out;
-        System.setOut(stream);
-    }
+    @Test
+    void agedBrie_whenNotOutdated_shouldIncreaseQualityByOne() {
+        Item agedBrie = new Item("Aged Brie", 1, 0);
+        GildedRose store = new GildedRose(new Item[]{agedBrie});
 
-    @AfterEach
-    void tearDown(){
-        System.setOut(toRestore);
+        store.updateQuality();
+
+        assertEquals(1, agedBrie.quality);
     }
 
     @Test
-    void goldenMasterTest() throws IOException {
-        TexttestFixture.main(new String[]{"100"});
+    void agedBrie_whenOutdated_shouldIncreaseQualityByTwo() {
+        Item agedBrie = new Item("Aged Brie", -1, 0);
+        GildedRose store = new GildedRose(new Item[]{agedBrie});
 
-        assertEquals(TestResourceUtils.readFile("expectedResult100Runs"), outputStream.toString());
+        store.updateQuality();
+
+        assertEquals(2, agedBrie.quality);
     }
+
+    @Test
+    void backstageTickets_whenOutdated_shouldHaveQualityZero() {
+        Item tickets = new Item("Backstage passes to a TAFKAL80ETC concert", -1, 5);
+        GildedRose store = new GildedRose(new Item[]{tickets});
+
+        store.updateQuality();
+
+        assertEquals(0, tickets.quality);
+    }
+
+    @Test
+    void backstageTickets_whenOneDayLeft_shouldIncreaseQualityByThree() {
+        Item tickets = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 0);
+        GildedRose store = new GildedRose(new Item[]{tickets});
+
+        store.updateQuality();
+
+        assertEquals(3, tickets.quality);
+    }
+
+    @Test
+    void backstageTickets_when7DayLeft_shouldIncreaseQualityByTwo() {
+        Item tickets = new Item("Backstage passes to a TAFKAL80ETC concert", 7, 0);
+        GildedRose store = new GildedRose(new Item[]{tickets});
+
+        store.updateQuality();
+
+        assertEquals(2, tickets.quality);
+    }
+
+    @Test
+    void backstageTickets_when15DayLeft_shouldIncreaseQualityByOne() {
+        Item tickets = new Item("Backstage passes to a Rolling stones concert", 15, 0);
+        GildedRose store = new GildedRose(new Item[]{tickets});
+
+        store.updateQuality();
+
+        assertEquals(1, tickets.quality);
+    }
+
+    @Test
+    void conjured_whenNotOutdated_shouldDecreaseQualityByTwo() {
+        Item conjuredRing = new Item("Conjured ring", 2, 2);
+        GildedRose store = new GildedRose(new Item[]{conjuredRing});
+
+        store.updateQuality();
+
+        assertEquals(0, conjuredRing.quality);
+    }
+
+    @Test
+    void conjured_whenOutdated_shouldDecreaseQualityByFour() {
+        Item conjuredRing = new Item("Conjured ring", -1, 4);
+        GildedRose store = new GildedRose(new Item[]{conjuredRing});
+
+        store.updateQuality();
+
+        assertEquals(0, conjuredRing.quality);
+    }
+
 }

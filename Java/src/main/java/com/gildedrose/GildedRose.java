@@ -16,67 +16,18 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-
-            QualityStrategy qualityStrategy = QualityStrategyFactory.get(item);
-
-            if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-
-                qualityStrategy.update(item);
-
-            } else {
-                if (canIncreaseQuality(item)) {
-                    incrementQuality(item);
-
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.sellIn < 11) {
-                            incrementQualityIfPossible(item);
-
-                            if (item.sellIn < 6) {
-                                incrementQualityIfPossible(item);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Backstage
-            // GreaterThan 10 -> +1
-            // Between [6,10] -> +2
-            // Between [5,1]  -> +3
-            // SmallerThan 0  -> = 0
-
-            // Sulfuras
-            // Never decreases anything
-
-            SellStrategy sellStrategy = SellStrategyFactory.getStrategy(item);
-            sellStrategy.update(item);
-
-            if (isOutdated(item)) {
-                if (item.name.equals("Aged Brie")) {
-                    incrementQualityIfPossible(item);
-                } else {
-                    qualityStrategy.update(item);
-                }
-            }
+            updateSellIn(item);
+            updateQuality(item);
         }
     }
 
-    private void incrementQualityIfPossible(Item item) {
-        if (canIncreaseQuality(item)) {
-            incrementQuality(item);
-        }
+    private void updateQuality(Item item) {
+        QualityStrategy qualityStrategy = QualityStrategyFactory.get(item);
+        qualityStrategy.update(item);
     }
 
-    private boolean isOutdated(Item item) {
-        return item.sellIn < 0;
-    }
-
-    private void incrementQuality(Item item) {
-        item.quality++;
-    }
-
-    private boolean canIncreaseQuality(Item item) {
-        return item.quality < MAX_QUALITY;
+    private void updateSellIn(Item item) {
+        SellStrategy sellStrategy = SellStrategyFactory.getStrategy(item);
+        sellStrategy.update(item);
     }
 }
